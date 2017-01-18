@@ -55,6 +55,7 @@ typedef enum {
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index;
 
+
 /** 图片滚动回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index;
 
@@ -183,4 +184,6 @@ typedef enum {
 /** 清除图片缓存（兼容旧版本方法） */
 - (void)clearCache;
 
+/** 获取当前pageId */
+- (NSInteger)getCurrentIndex;
 @end

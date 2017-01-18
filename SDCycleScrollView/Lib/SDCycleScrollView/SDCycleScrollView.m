@@ -587,6 +587,11 @@ NSString * const ID = @"cycleCell";
     }
 }
 
+- (NSInteger)getCurrentIndex {
+    int itemIndex = [self currentIndex];
+    int indexOnPageControl = [self pageControlIndexWithCurrentCellIndex:itemIndex];
+    return indexOnPageControl;
+}
 
 #pragma mark - UIScrollViewDelegate
 
@@ -596,12 +601,8 @@ NSString * const ID = @"cycleCell";
     int itemIndex = [self currentIndex];
     int indexOnPageControl = [self pageControlIndexWithCurrentCellIndex:itemIndex];
     
-    if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
-        TAPageControl *pageControl = (TAPageControl *)_pageControl;
-        pageControl.currentPage = indexOnPageControl;
-    } else {
-        UIPageControl *pageControl = (UIPageControl *)_pageControl;
-        pageControl.currentPage = indexOnPageControl;
+    if ([self.delegate respondsToSelector:@selector(cycleScrollView:didScrollToIndex:)]) {
+        [self.delegate cycleScrollView:self didScrollToIndex:indexOnPageControl];
     }
 }
 
@@ -626,15 +627,15 @@ NSString * const ID = @"cycleCell";
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    if (!self.imagePathsGroup.count) return; // 解决清除timer时偶尔会出现的问题
-    int itemIndex = [self currentIndex];
-    int indexOnPageControl = [self pageControlIndexWithCurrentCellIndex:itemIndex];
-    
-    if ([self.delegate respondsToSelector:@selector(cycleScrollView:didScrollToIndex:)]) {
-        [self.delegate cycleScrollView:self didScrollToIndex:indexOnPageControl];
-    } else if (self.itemDidScrollOperationBlock) {
-        self.itemDidScrollOperationBlock(indexOnPageControl);
-    }
+//    if (!self.imagePathsGroup.count) return; // 解决清除timer时偶尔会出现的问题
+//    int itemIndex = [self currentIndex];
+//    int indexOnPageControl = [self pageControlIndexWithCurrentCellIndex:itemIndex];
+//    
+//    if ([self.delegate respondsToSelector:@selector(cycleScrollView:didScrollToIndex:)]) {
+//        [self.delegate cycleScrollView:self didScrollToIndex:indexOnPageControl];
+//    } else if (self.itemDidScrollOperationBlock) {
+//        self.itemDidScrollOperationBlock(indexOnPageControl);
+//    }
 }
 
 
