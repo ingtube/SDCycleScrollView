@@ -319,6 +319,22 @@ NSString * const ID = @"cycleCell";
     self.imagePathsGroup = [temp copy];
 }
 
+- (void)setCustomViewGroup:(NSArray<UIView *> *)customViewGroup {
+    _customViewGroup = customViewGroup;
+    
+    _totalItemsCount = self.infiniteLoop ? customViewGroup.count * 100 : customViewGroup.count;
+    
+    if (customViewGroup.count != 1) {
+        self.mainView.scrollEnabled = YES;
+        [self setAutoScroll:self.autoScroll];
+    } else {
+        self.mainView.scrollEnabled = NO;
+    }
+    
+    [self setupPageControl];
+    [self.mainView reloadData];
+}
+
 - (void)setLocalizationImageNamesGroup:(NSArray *)localizationImageNamesGroup
 {
     _localizationImageNamesGroup = localizationImageNamesGroup;
@@ -441,7 +457,11 @@ NSString * const ID = @"cycleCell";
 
 - (int)pageControlIndexWithCurrentCellIndex:(NSInteger)index
 {
-    return (int)index % self.imagePathsGroup.count;
+    if (self.isCustomView) {
+        return (int)index % self.customViewGroup.count;
+    }else {
+        return (int)index % self.imagePathsGroup.count;
+    }
 }
 
 - (void)clearCache
@@ -543,25 +563,32 @@ NSString * const ID = @"cycleCell";
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
     long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
     
-    NSString *imagePath = self.imagePathsGroup[itemIndex];
-    
-    if (!self.onlyDisplayText && [imagePath isKindOfClass:[NSString class]]) {
-        if ([imagePath hasPrefix:@"http"]) {
-            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage];
-        } else {
-            UIImage *image = [UIImage imageNamed:imagePath];
-            if (!image) {
-                [UIImage imageWithContentsOfFile:imagePath];
+    if (self.isCustomView) {
+        UIView *cv = self.customViewGroup[itemIndex];
+        [cell configView:cv];
+        
+    }else {
+        NSString *imagePath = self.imagePathsGroup[itemIndex];
+        
+        if (!self.onlyDisplayText && [imagePath isKindOfClass:[NSString class]]) {
+            if ([imagePath hasPrefix:@"http"]) {
+                [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage];
+            } else {
+                UIImage *image = [UIImage imageNamed:imagePath];
+                if (!image) {
+                    [UIImage imageWithContentsOfFile:imagePath];
+                }
+                cell.imageView.image = image;
             }
-            cell.imageView.image = image;
+        } else if (!self.onlyDisplayText && [imagePath isKindOfClass:[UIImage class]]) {
+            cell.imageView.image = (UIImage *)imagePath;
         }
-    } else if (!self.onlyDisplayText && [imagePath isKindOfClass:[UIImage class]]) {
-        cell.imageView.image = (UIImage *)imagePath;
+        
+        if (_titlesGroup.count && itemIndex < _titlesGroup.count) {
+            cell.title = _titlesGroup[itemIndex];
+        }
     }
     
-    if (_titlesGroup.count && itemIndex < _titlesGroup.count) {
-        cell.title = _titlesGroup[itemIndex];
-    }
     
     if (!cell.hasConfigured) {
         cell.titleLabelBackgroundColor = self.titleLabelBackgroundColor;

@@ -47,4 +47,6 @@
 /** 只展示文字轮播 */
 @property (nonatomic, assign) BOOL onlyDisplayText;
 
+/** 设置自定义view */
+- (void)configView:(UIView *)view;
 @end

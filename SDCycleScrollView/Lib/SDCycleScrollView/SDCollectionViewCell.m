@@ -36,6 +36,7 @@
 @implementation SDCollectionViewCell
 {
     __weak UILabel *_titleLabel;
+    __weak UIView *_customView;
 }
 
 
@@ -91,6 +92,10 @@
     }
 }
 
+- (void)configView:(UIView *)view {
+    _customView = view;
+    [self.contentView addSubview:_customView];
+}
 
 - (void)layoutSubviews
 {

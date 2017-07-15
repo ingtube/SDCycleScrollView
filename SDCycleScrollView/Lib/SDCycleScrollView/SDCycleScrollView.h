@@ -76,7 +76,6 @@ typedef enum {
 /** 本地图片轮播初始化方式2,infiniteLoop:是否无限循环 */
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup;
 
-
 //////////////////////  数据源接口  //////////////////////
 
 /** 网络图片 url string 数组 */
@@ -88,7 +87,8 @@ typedef enum {
 /** 本地图片数组 */
 @property (nonatomic, strong) NSArray *localizationImageNamesGroup;
 
-
+/** 自定义view数组 */
+@property (nonatomic, strong) NSArray<UIView*> *customViewGroup;
 
 
 
@@ -134,6 +134,9 @@ typedef enum {
 
 /** 只展示文字轮播 */
 @property (nonatomic, assign) BOOL onlyDisplayText;
+
+/** 自定义展示view */
+@property (nonatomic, assign) BOOL isCustomView;
 
 /** pagecontrol 样式，默认为动画样式 */
 @property (nonatomic, assign) SDCycleScrollViewPageContolStyle pageControlStyle;
