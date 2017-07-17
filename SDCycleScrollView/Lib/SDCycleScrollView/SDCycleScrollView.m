@@ -624,7 +624,12 @@ NSString * const ID = @"cycleCell";
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (!self.imagePathsGroup.count) return; // 解决清除timer时偶尔会出现的问题
+    if (self.isCustomView) {
+        if (!self.customViewGroup.count) return; // 解决清除timer时偶尔会出现的问题
+    }else {
+        if (!self.imagePathsGroup.count) return; // 解决清除timer时偶尔会出现的问题
+    }
+    
     int itemIndex = [self currentIndex];
     int indexOnPageControl = [self pageControlIndexWithCurrentCellIndex:itemIndex];
     
