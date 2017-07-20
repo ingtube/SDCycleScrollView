@@ -564,8 +564,9 @@ NSString * const ID = @"cycleCell";
     long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
     
     if (self.isCustomView) {
-        UIView *cv = self.customViewGroup[itemIndex];
-        [cell configView:cv];
+        NSDictionary *dic = self.customViewGroup[itemIndex];
+        [cell.AvatarImageView sd_setImageWithURL:dic[@"avatar"] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
+        cell.comment = dic[@"comment"];
         
     }else {
         NSString *imagePath = self.imagePathsGroup[itemIndex];

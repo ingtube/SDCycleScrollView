@@ -36,7 +36,7 @@
 @implementation SDCollectionViewCell
 {
     __weak UILabel *_titleLabel;
-    __weak UIView *_customView;
+    __weak UILabel *_commentLabel;
 }
 
 
@@ -45,6 +45,8 @@
     if (self = [super initWithFrame:frame]) {
         [self setupImageView];
         [self setupTitleLabel];
+        [self setupAvatarView];
+        [self setupCommentLabel];
     }
     
     return self;
@@ -83,6 +85,19 @@
     [self.contentView addSubview:titleLabel];
 }
 
+- (void)setupCommentLabel
+{
+    UILabel *lbl = [[UILabel alloc] init];
+    lbl.numberOfLines = 2.;
+    lbl.textColor = [UIColor blackColor];
+    lbl.font = [UIFont systemFontOfSize:13. weight:UIFontWeightMedium];
+
+    _commentLabel = lbl;
+    _commentLabel.hidden = YES;
+    [self.contentView addSubview:_commentLabel];
+}
+
+
 - (void)setTitle:(NSString *)title
 {
     _title = [title copy];
@@ -92,9 +107,20 @@
     }
 }
 
-- (void)configView:(UIView *)view {
-    _customView = view;
-    [self.contentView addSubview:_customView];
+- (void)setComment:(NSString *)comment {
+    _comment = comment;
+    _commentLabel.text = _comment;
+    if (_commentLabel.hidden) {
+        _commentLabel.hidden = NO;
+    }
+}
+
+- (void)setupAvatarView {
+    UIImageView *av = [[UIImageView alloc] init];
+    av.layer.cornerRadius = 18.f;
+    av.layer.masksToBounds = YES;
+    _AvatarImageView = av;
+    [self.contentView addSubview:av];
 }
 
 - (void)layoutSubviews
@@ -110,6 +136,8 @@
         CGFloat titleLabelX = 0;
         CGFloat titleLabelY = self.sd_height - titleLabelH;
         _titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH);
+        _commentLabel.frame = CGRectMake(62, 13, [UIScreen mainScreen].bounds.size.width - 48. - 74., 36);
+        _AvatarImageView.frame = CGRectMake(16, 14, 36, 36);
     }
 }
 

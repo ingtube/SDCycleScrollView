@@ -35,7 +35,9 @@
 @interface SDCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) UIImageView *imageView;
+@property (weak, nonatomic) UIImageView *AvatarImageView;
 @property (copy, nonatomic) NSString *title;
+@property (copy, nonatomic) NSString *comment;
 
 @property (nonatomic, strong) UIColor *titleLabelTextColor;
 @property (nonatomic, strong) UIFont *titleLabelTextFont;
@@ -47,6 +49,4 @@
 /** 只展示文字轮播 */
 @property (nonatomic, assign) BOOL onlyDisplayText;
 
-/** 设置自定义view */
-- (void)configView:(UIView *)view;
 @end

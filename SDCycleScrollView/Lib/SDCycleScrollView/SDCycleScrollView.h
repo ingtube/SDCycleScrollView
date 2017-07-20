@@ -88,7 +88,7 @@ typedef enum {
 @property (nonatomic, strong) NSArray *localizationImageNamesGroup;
 
 /** 自定义view数组 */
-@property (nonatomic, strong) NSArray<UIView*> *customViewGroup;
+@property (nonatomic, strong) NSArray *customViewGroup;
 
 
 
