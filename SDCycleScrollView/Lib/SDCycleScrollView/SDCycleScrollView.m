@@ -422,6 +422,8 @@ NSString * const ID = @"cycleCell";
 - (void)automaticScroll
 {
     if (0 == _totalItemsCount) return;
+    if (self.isCustomView && self.customViewGroup.count <= 1) return;
+    
     int currentIndex = [self currentIndex];
     int targetIndex = currentIndex + 1;
     [self scrollToIndex:targetIndex];
