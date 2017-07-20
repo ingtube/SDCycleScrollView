@@ -91,7 +91,7 @@ NSString * const ID = @"cycleCell";
     _pageDotColor = [UIColor lightGrayColor];
     _bannerImageViewContentMode = UIViewContentModeScaleToFill;
     
-    self.backgroundColor = [UIColor lightGrayColor];
+    //self.backgroundColor = [UIColor lightGrayColor];
     
 }
 
@@ -349,7 +349,7 @@ NSString * const ID = @"cycleCell";
         for (int i = 0; i < _titlesGroup.count; i++) {
             [temp addObject:@""];
         }
-        self.backgroundColor = [UIColor clearColor];
+        //self.backgroundColor = [UIColor clearColor];
         self.imageURLStringsGroup = [temp copy];
     }
 }
