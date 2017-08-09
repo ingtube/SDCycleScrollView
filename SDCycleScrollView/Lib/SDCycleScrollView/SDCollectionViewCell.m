@@ -37,6 +37,7 @@
 {
     __weak UILabel *_titleLabel;
     __weak UILabel *_commentLabel;
+    __weak UIButton *_closeButton;
 }
 
 
@@ -47,6 +48,7 @@
         [self setupTitleLabel];
         [self setupAvatarView];
         [self setupCommentLabel];
+        [self setupCloseButton];
     }
     
     return self;
@@ -97,6 +99,16 @@
     [self.contentView addSubview:_commentLabel];
 }
 
+- (void)setupCloseButton
+{
+    UIButton *closeBtn = [[UIButton alloc] init];
+    [closeBtn setImage:[UIImage imageNamed:@"banner_shutdown"] forState:UIControlStateNormal];
+    [closeBtn addTarget:self action:@selector(didClickCloseButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _closeButton = closeBtn;
+    _closeButton.hidden = YES;
+    [self addSubview:closeBtn];
+}
 
 - (void)setTitle:(NSString *)title
 {
@@ -123,6 +135,17 @@
     [self.contentView addSubview:av];
 }
 
+- (void)setShowCloseButton:(BOOL)showCloseButton {
+    _showCloseButton = showCloseButton;
+    _closeButton.hidden = !showCloseButton;
+}
+
+- (void)didClickCloseButton:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(collectionCellDidClickClose:)]) {
+        [self.delegate collectionCellDidClickClose:self];
+    }
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -138,6 +161,7 @@
         _titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH);
         _commentLabel.frame = CGRectMake(62, 13, [UIScreen mainScreen].bounds.size.width - 48. - 74., 36);
         _AvatarImageView.frame = CGRectMake(16, 14, 36, 36);
+        _closeButton.frame = CGRectMake(self.bounds.size.width - 36, 0, 36, 36);
     }
 }
 

@@ -40,7 +40,7 @@
 
 NSString * const ID = @"cycleCell";
 
-@interface SDCycleScrollView () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface SDCycleScrollView () <UICollectionViewDataSource, UICollectionViewDelegate, SDCollectionCellDelegate>
 
 
 @property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
@@ -567,9 +567,14 @@ NSString * const ID = @"cycleCell";
     
     if (self.isCustomView) {
         NSDictionary *dic = self.customViewGroup[itemIndex];
-        [cell.AvatarImageView sd_setImageWithURL:dic[@"avatar"] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
-        cell.comment = dic[@"comment"];
-        
+        if ([dic[@"type"] isEqualToString:@"1"]) {
+            [cell.imageView sd_setImageWithURL:dic[@"imageUrl"]];
+            cell.showCloseButton = [dic[@"showCloseButton"] boolValue];
+            cell.delegate = self;
+        }else {
+            [cell.AvatarImageView sd_setImageWithURL:dic[@"avatar"] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
+            cell.comment = dic[@"comment"];
+        }
     }else {
         NSString *imagePath = self.imagePathsGroup[itemIndex];
         
@@ -673,5 +678,10 @@ NSString * const ID = @"cycleCell";
 //    }
 }
 
+- (void)collectionCellDidClickClose:(SDCollectionViewCell *)cell {
+    if ([self.delegate respondsToSelector:@selector(cycleScrollView:didCloseIndex:)]) {
+        [self.delegate cycleScrollView:self didCloseIndex:[self.mainView indexPathForCell:cell].row];
+    }
+}
 
 @end

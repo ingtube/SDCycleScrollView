@@ -59,6 +59,9 @@ typedef enum {
 /** 图片滚动回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index;
 
+/** 点击关闭banner */
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didCloseIndex:(NSInteger)index;
+
 @end
 
 @interface SDCycleScrollView : UIView

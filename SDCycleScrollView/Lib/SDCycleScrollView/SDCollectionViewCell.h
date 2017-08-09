@@ -32,12 +32,19 @@
 
 #import <UIKit/UIKit.h>
 
+@class SDCollectionViewCell;
+
+@protocol SDCollectionCellDelegate <NSObject>
+- (void)collectionCellDidClickClose:(SDCollectionViewCell *)cell;
+@end
+
 @interface SDCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) UIImageView *imageView;
 @property (weak, nonatomic) UIImageView *AvatarImageView;
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *comment;
+@property (assign, nonatomic) BOOL showCloseButton;
 
 @property (nonatomic, strong) UIColor *titleLabelTextColor;
 @property (nonatomic, strong) UIFont *titleLabelTextFont;
@@ -49,4 +56,5 @@
 /** 只展示文字轮播 */
 @property (nonatomic, assign) BOOL onlyDisplayText;
 
+@property (weak, nonatomic) id<SDCollectionCellDelegate> delegate;
 @end
