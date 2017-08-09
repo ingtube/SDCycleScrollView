@@ -570,6 +570,7 @@ NSString * const ID = @"cycleCell";
         if ([dic[@"type"] isEqualToString:@"1"]) {
             [cell.imageView sd_setImageWithURL:dic[@"imageUrl"]];
             cell.showCloseButton = [dic[@"showCloseButton"] boolValue];
+            cell.bannerId = dic[@"bannerId"];
             cell.delegate = self;
         }else {
             [cell.AvatarImageView sd_setImageWithURL:dic[@"avatar"] placeholderImage:[UIImage imageNamed:@"avatar_default"]];

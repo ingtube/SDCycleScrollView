@@ -35,7 +35,7 @@
 @class SDCollectionViewCell;
 
 @protocol SDCollectionCellDelegate <NSObject>
-- (void)collectionCellDidClickClose:(SDCollectionViewCell *)cell;
+- (void)collectionCellDidClickClose:(NSString *)bannerId;
 @end
 
 @interface SDCollectionViewCell : UICollectionViewCell
@@ -45,6 +45,7 @@
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *comment;
 @property (assign, nonatomic) BOOL showCloseButton;
+@property (copy, nonatomic) NSString *bannerId;
 
 @property (nonatomic, strong) UIColor *titleLabelTextColor;
 @property (nonatomic, strong) UIFont *titleLabelTextFont;

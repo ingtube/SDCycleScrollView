@@ -142,7 +142,7 @@
 
 - (void)didClickCloseButton:(id)sender {
     if ([self.delegate respondsToSelector:@selector(collectionCellDidClickClose:)]) {
-        [self.delegate collectionCellDidClickClose:self];
+        [self.delegate collectionCellDidClickClose:self.bannerId];
     }
 }
 
