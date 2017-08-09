@@ -60,7 +60,7 @@ typedef enum {
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index;
 
 /** 点击关闭banner */
-- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didCloseIndex:(NSInteger)index;
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didCloseBanner:(NSString *)bannerId;
 
 @end
 

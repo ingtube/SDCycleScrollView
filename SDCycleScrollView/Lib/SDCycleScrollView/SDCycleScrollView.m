@@ -679,9 +679,9 @@ NSString * const ID = @"cycleCell";
 //    }
 }
 
-- (void)collectionCellDidClickClose:(SDCollectionViewCell *)cell {
-    if ([self.delegate respondsToSelector:@selector(cycleScrollView:didCloseIndex:)]) {
-        [self.delegate cycleScrollView:self didCloseIndex:[self.mainView indexPathForCell:cell].row];
+- (void)collectionCellDidClickClose:(NSString *)bannerId {
+    if ([self.delegate respondsToSelector:@selector(cycleScrollView:didCloseBanner:)]) {
+        [self.delegate cycleScrollView:self didCloseBanner:bannerId];
     }
 }
 
